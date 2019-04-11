@@ -1,0 +1,56 @@
+{include file="public/header" /}
+<body>
+<div class="page-container">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{:url('coupon/save')}" onsubmit="return checkParams();">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span> 优惠券名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input style="width: 45%;" type="text" class="input-text" value="" placeholder="" id="coupon_name" name="coupon_name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span> 满：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input style="width: 25%;" type="text" class="input-text" value="" placeholder="" id="max" name="max">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span> 面额：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input style="width: 25%;" type="text" class="input-text" value="" placeholder="" id="par_value" name="par_value">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span> 有效时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input style="width: 35%;" type="date" class="input-text" value="" placeholder="" id="start_time" name="start_time"> ~
+				<input style="width: 35%;" type="date" class="input-text" value="" placeholder="" id="end_time" name="end_time">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+	function checkParams(){
+		coupon_name = document.getElementById('coupon_name').value;
+		max = document.getElementById('max').value;
+		par_value = document.getElementById('par_value').value;
+		start_time = document.getElementById('start_time').value;
+		end_time = document.getElementById('end_time').value;
+		if(!coupon_name || !max || !par_value || !start_time || !end_time){
+			alert('请补全信息!');
+			return false;
+		}
+		return true;
+	}
+</script>
+</body>
+<!--包含头部文件-->
+{include file="public/footer" /}

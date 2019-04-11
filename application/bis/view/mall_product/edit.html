@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		.input-text1-15 {
+			width: 15%;
+		}
+
+		.input-text1-8 {
+			width: 8%;
+		}
+		label.intro {
+			color: red;
+		}
+
+		#thumb_c,#image_c,#config_image1_c,#config_image2_c,#config_image3_c,#config_image4_c,#wx_config_image1_c,#wx_config_image2_c,#wx_config_image3_c,#wx_config_image4_c,#wx_config_image5_c,#wx_config_image6_c,#wx_config_image7_c,#wx_config_image8_c,#wx_config_image9_c,#wx_config_image10_c {
+			width: 15%;
+			max-height: 150px;
+		}
+
+		.img_bottom {
+			margin-bottom: 10px;
+		}
+
+	</style>
+	<script>
+		function checkParams(){
+			var p_name = document.getElementById('p_name');
+			var producing_area = document.getElementById('producing_area');
+			var original_price = document.getElementById('original_price');
+			var associator_price = document.getElementById('associator_price');
+			var ex_jifen = document.getElementById('ex_jifen');
+			var weight = document.getElementById('weight');
+			var huohao = document.getElementById('huohao');
+			var content1_name =document.getElementsByName('content1_name[]');
+			var con_content1 =document.getElementsByName('con_content1[]');
+			var ex_jifen1 =document.getElementsByName('ex_jifen[]');
+			var unit_price =document.getElementsByName('unit_price[]');
+			//验证上传图片问题
+			var thumb =document.getElementById('thumb').files;
+			var image =document.getElementById('image').files;
+			var config_image1 =document.getElementById('config_image1').files;
+			var config_image2 =document.getElementById('config_image2').files;
+			var config_image3 =document.getElementById('config_image3').files;
+			var config_image4 =document.getElementById('config_image4').files;
+			var wx_config_image1 =document.getElementById('wx_config_image1').files;
+			var wx_config_image2 =document.getElementById('wx_config_image2').files;
+			var wx_config_image3 =document.getElementById('wx_config_image3').files;
+			var wx_config_image4 =document.getElementById('wx_config_image4').files;
+			var wx_config_image5 =document.getElementById('wx_config_image5').files;
+			var wx_config_image6 =document.getElementById('wx_config_image6').files;
+			var wx_config_image7 =document.getElementById('wx_config_image7').files;
+			var wx_config_image8 =document.getElementById('wx_config_image8').files;
+			var wx_config_image9 =document.getElementById('wx_config_image9').files;
+			var wx_config_image10 =document.getElementById('wx_config_image10').files;
+
+			if(!p_name.value || p_name.value == ''){
+				alert('请填写商品名称!');
+				return false;
+			}
+			if(!producing_area.value || producing_area.value == ''){
+				alert('请填写商品产地!');
+				return false;
+			}
+			for( var i = 0; i < content1_name.length; i++) {
+				if(!content1_name[i].value || !con_content1[i].value || !ex_jifen1[i].value || !unit_price[i].value){
+					alert('请补全配置信息!');
+					return false;
+				}
+				continue;
+			}
+			if(!original_price.value || original_price.value == ''){
+				alert('请填写商品原价!');
+				return false;
+			}
+			if(!associator_price.value || associator_price.value == ''){
+				alert('请填写商品会员价!');
+				return false;
+			}
+
+			if(!ex_jifen.value || ex_jifen.value == ''){
+				alert('请填写兑换积分!');
+				return false;
+			}
+			if(!weight.value || weight.value == '' || weight.value == 0){
+				alert('请填写商品重量!');
+				return false;
+			}
+			if(!huohao.value || huohao.value == ''){
+				alert('请填写商品货号!');
+				return false;
+			}
+			if(thumb.length < 1){
+				alert('请上传商品缩略图!');
+				return false;
+			}
+			if(image.length < 1 && config_image1.length < 1 && config_image2.length < 1 && config_image3.length < 1 && config_image4.length < 1){
+				alert('请上传商品配置图片!');
+				return false;
+			}
+			if(wx_config_image1.length < 1 && wx_config_image2.length < 1 && wx_config_image3.length < 1 && wx_config_image4.length < 1 && wx_config_image5.length < 1 && wx_config_image6.length < 1 && wx_config_image7.length < 1 && wx_config_image8.length < 1 && wx_config_image9.length < 1 && wx_config_image10.length < 1){
+				alert('请上传商品介绍图片!');
+				return false;
+			}
+			return true;
+
+		}
+	</script>
+</head>
+<body>
+<div class="page-container">
+	<form action="{:url('mallProduct/updateProduct')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add" onsubmit="return checkParams();">
+		<input type="hidden" name="pro_id" value="{$pro_res.pro_id}">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$pro_res.p_name}" placeholder="" id="p_name" name="p_name">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品单位：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 15%;">
+					<select name="unit" class="select unit">
+						<option value="">请选择单位</option>
+						<option value="套">套</option>
+						<option value="件">件</option>
+						<option value="台">台</option>
+						<option value="瓶">瓶</option>
+						<option value="箱">箱</option>
+						<option value="盒">盒</option>
+						<option value="个">个</option>
+						<option value="包">包</option>
+						<option value="罐">罐</option>
+						<option value="支">支</option>
+						<option value="块">块</option>
+					</select>
+				</span>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品产地：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$pro_res.producing_area}" placeholder="" id="producing_area" name="producing_area">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品规格：</label>
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2" style="margin-left: 0%;">
+				<button class="btn btn-success-outline radius" type="button" id="showguige" style="margin-left: 0%;" onclick="showGuige({$pro_id});">显示规格</button>
+			</div>
+		</div>
+		<div class="guige_div"></div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">其他价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">零售价: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin-bottom: 1%;" value="{$pro_res.original_price}" placeholder="" id="original_price" name="original_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* 此价格为标价</label><br>
+				<label style="margin-left: 1%;">会员价: </label>
+				<span class="select-box" style="width: 15%;">
+					<select name="associator_discount" class="select associator_discount">
+						<option value="1">不打折</option>
+						<option value="0.90">九折</option>
+						<option value="0.80">八折</option>
+						<option value="0.70">七折</option>
+						<option value="0.60">六折</option>
+						<option value="0.50">五折</option>
+						<option value="0.40">四折</option>
+						<option value="0.30">三折</option>
+						<option value="0.20">二折</option>
+						<option value="0.15">一五折</option>
+						<option value="0.10">一折</option>
+					</select>
+				</span>
+				<input type="text" class="input-text1 input-text1-15" style="margin: 0.5% 0;" value="{$pro_res.associator_price}" placeholder="" id="associator_price" name="associator_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* 此价格是一般会员购买执行的价格.</label><br>
+				<label style="margin-left: 1%;">兑换积分: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin-bottom: 1%;" value="{$pro_res.ex_jifen}" placeholder="" id="ex_jifen" name="ex_jifen">
+				<label style="margin-left: 1%;" class="intro">* 所需积分</label><br>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品排序：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" value="{$pro_res.listorder}" placeholder="" id="" name="listorder">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">产品重量：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" value="{$pro_res.weight}" placeholder="" id="" name="weight">千克
+				<label style="margin-left: 1%;" class="intro">* (请务必仔细填写具体重量)</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品货号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$pro_res.huohao}" placeholder="" id="huohao" name="huohao">
+				<label style="margin-left: 1%;" class="intro">*</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">关键字: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$pro_res.keywords}" placeholder="" id="keywords" name="keywords">
+				<label style="margin-left: 1%;" class="intro">(多个关键字务必用半角逗号分开,如: 音乐,数码,图书)</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品图片: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">缩略图:</label>
+				<input type="file" class="input-text1" id="thumb" name="thumb"><img src="" id="thumb_c" onclick="F_Open('thumb_c','thumb')" >
+				<label style="margin-left: 1%;" class="intro">(产品缩略图,请尽量压缩图片大小.)</label><br>
+
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">配置图片上传: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">图片一:</label>
+				<input type="file" class="input-text1 " id="image" name="image"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="image_c" onclick="F_Open('image_c','image')" >
+				<label style="margin-left: 1%;" class="intro">(商品配置图片最多五张,作为商品轮播图显示,至少上传一张..)</label><br>
+				<label style="margin-left: 1%;">图片二: </label>
+				<input type="file" class="input-text1 " id="config_image1" name="config_image1"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="config_image1_c" onclick="F_Open('config_image1_c','config_image1')" ><br>
+				<label style="margin-left: 1%;">图片三: </label>
+				<input type="file" class="input-text1 " id="config_image2" name="config_image2"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="config_image2_c" onclick="F_Open('config_image2_c','config_image2')" ><br>
+				<label style="margin-left: 1%;">图片四: </label>
+				<input type="file" class="input-text1 " id="config_image3" name="config_image3"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="config_image3_c" onclick="F_Open('config_image3_c','config_image3')" ><br>
+				<label style="margin-left: 1%;">图片五: </label>
+				<input type="file" class="input-text1" id="config_image4" name="config_image4"><img src="" onerror="javascript:this.src='{$no_img_url}'" id="config_image4_c" onclick="F_Open('config_image4_c','config_image4')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品简介文字(小程序专用)：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="wx_description" style="width: 320px;height: 100px;">{$pro_res.wx_introduce}</textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品介绍图片(小程序专用): </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">图片一: </label>
+				<input type="file" class="input-text1" id="wx_config_image1"  name="wx_config_image1"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image1_c" onclick="F_Open('wx_config_image1_c','wx_config_image1')" ><br>
+				<label style="margin-left: 1%;">图片二: </label>
+				<input type="file" class="input-text1" id="wx_config_image2"  name="wx_config_image2"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image2_c" onclick="F_Open('wx_config_image2_c','wx_config_image2')" ><br>
+				<label style="margin-left: 1%;">图片三: </label>
+				<input type="file" class="input-text1" id="wx_config_image3"  name="wx_config_image3"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image3_c" onclick="F_Open('wx_config_image3_c','wx_config_image3')" ><br>
+				<label style="margin-left: 1%;">图片四: </label>
+				<input type="file" class="input-text1" id="wx_config_image4"  name="wx_config_image4"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image4_c" onclick="F_Open('wx_config_image4_c','wx_config_image4')" ><br>
+				<label style="margin-left: 1%;">图片五: </label>
+				<input type="file" class="input-text1" id="wx_config_image5"  name="wx_config_image5"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image5_c" onclick="F_Open('wx_config_image5_c','wx_config_image5')" ><br>
+				<label style="margin-left: 1%;">图片六: </label>
+				<input type="file" class="input-text1" id="wx_config_image6"  name="wx_config_image6"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image6_c" onclick="F_Open('wx_config_image6_c','wx_config_image6')" ><br>
+				<label style="margin-left: 1%;">图片七: </label>
+				<input type="file" class="input-text1" id="wx_config_image7"  name="wx_config_image7"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image7_c" onclick="F_Open('wx_config_image7_c','wx_config_image7')" ><br>
+				<label style="margin-left: 1%;">图片八: </label>
+				<input type="file" class="input-text1" id="wx_config_image8"  name="wx_config_image8"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image8_c" onclick="F_Open('wx_config_image8_c','wx_config_image8')" ><br>
+				<label style="margin-left: 1%;">图片九: </label>
+				<input type="file" class="input-text1" id="wx_config_image9"  name="wx_config_image9"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image9_c" onclick="F_Open('wx_config_image9_c','wx_config_image9')" ><br>
+				<label style="margin-left: 1%;">图片十: </label>
+				<input type="file" class="input-text1" id="wx_config_image10"  name="wx_config_image10"><img src="" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image10_c" onclick="F_Open('wx_config_image10_c','wx_config_image10')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">修&nbsp;改&nbsp;商&nbsp;品</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript">
+	//初始化
+	$(function(){
+
+		//设置单位选中
+		$(".unit").find("option[value='{$pro_res.unit}']").attr("selected",true);
+		//设置打折选中
+		$(".associator_discount").find("option[value='{$pro_res.associator_discount}']").attr("selected",true);
+
+		//设置图片
+		$('#thumb').css('display','none');
+		$('#image').css('display','none');
+		$('#config_image1').css('display','none');
+		$('#config_image2').css('display','none');
+		$('#config_image3').css('display','none');
+		$('#config_image4').css('display','none');
+		$('#wx_config_image1').css('display','none');
+		$('#wx_config_image2').css('display','none');
+		$('#wx_config_image3').css('display','none');
+		$('#wx_config_image4').css('display','none');
+		$('#wx_config_image5').css('display','none');
+		$('#wx_config_image6').css('display','none');
+		$('#wx_config_image7').css('display','none');
+		$('#wx_config_image8').css('display','none');
+		$('#wx_config_image9').css('display','none');
+		$('#wx_config_image10').css('display','none');
+		$('#thumb_c').attr('src','{$pro_res.thumb}');
+		$('#image_c').attr('src','{$pro_res.image}');
+		$('#config_image1_c').attr('src','{$pro_res.config_image1}');
+		$('#config_image2_c').attr('src','{$pro_res.config_image2}');
+		$('#config_image3_c').attr('src','{$pro_res.config_image3}');
+		$('#config_image4_c').attr('src','{$pro_res.config_image4}');
+		$('#wx_config_image1_c').attr('src','{$pro_res.wx_config_image1}');
+		$('#wx_config_image2_c').attr('src','{$pro_res.wx_config_image2}');
+		$('#wx_config_image3_c').attr('src','{$pro_res.wx_config_image3}');
+		$('#wx_config_image4_c').attr('src','{$pro_res.wx_config_image4}');
+		$('#wx_config_image5_c').attr('src','{$pro_res.wx_config_image5}');
+		$('#wx_config_image6_c').attr('src','{$pro_res.wx_config_image6}');
+		$('#wx_config_image7_c').attr('src','{$pro_res.wx_config_image7}');
+		$('#wx_config_image8_c').attr('src','{$pro_res.wx_config_image8}');
+		$('#wx_config_image9_c').attr('src','{$pro_res.wx_config_image9}');
+		$('#wx_config_image10_c').attr('src','{$pro_res.wx_config_image10}');
+
+	});
+
+	function showGuige(pro_id){
+		text = $('#showguige').text();
+
+		if(text == '显示规格'){
+			url = "{:url('mallProduct/getConfigInfoByProid')}";
+			postData = {
+				'id' : pro_id
+			};
+
+			$.post(url,postData,function(result){
+				if(result.status == 1){
+					data = result.data;
+					count = data.length;
+					for(i = 0;i<count;i++){
+						var content1_name = data[i]['content1_name'];
+						var con_content1 = data[i]['con_content1'];
+						var unit_price = data[i]['price'];
+						var inventory = data[i]['inventory'];
+						var ex_jifen = data[i]['ex_jifen'];
+						var config_id = data[i]['id'];
+
+						content1_name_id = "content1_name_"+config_id;
+						con_content1_id = "con_content1_"+config_id;
+						unit_price_id = "unit_price_"+config_id;
+						ex_jifen_id = "ex_jifen_"+config_id;
+						inventory_id = "inventory_"+config_id;
+
+
+						var str = '<div class="row cl aaaa" >'+
+								'<label class="form-label col-xs-4 col-sm-2"></label>'+
+								'<div class="formControls col-xs-8 col-sm-9 ">'+
+								'<label style="margin-left: 1%;" class="">规格:</label>'+
+								'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="'+content1_name+'" placeholder="如颜色等" id="'+content1_name_id+'" name="content1_name[]"> ->'+
+								'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="'+con_content1+'" placeholder="" id="'+con_content1_id+'" name="con_content1[]">'+
+								'<label style="margin-left: 1%;" class="">积分:</label>'+
+								'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="'+ex_jifen+'" placeholder="" id="'+ex_jifen_id+'" name="ex_jifen[]">'+
+								'<label style="margin-left: 1%;" class="">换购价:</label>'+
+								'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="'+unit_price+'" placeholder="" id="'+unit_price_id+'" name="unit_price[]">元'+
+								'<label style="margin-left: 1%;" class="">库存量:</label>'+
+								'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="'+inventory+'" placeholder="" id="'+inventory_id+'" name="inventory[]">'+
+								'<button class="btn btn-secondary-outline radius" onclick="remove1('+pro_id+','+config_id+');"  type="button" style="margin-left: 2%;">-</button>'+
+								'<button class="btn btn-secondary-outline radius add" type="button" style="margin-left: 0.5%;">+</button>'+
+								'<button class="btn btn-secondary-outline radius update" id="update_" onclick="update('+pro_id+','+config_id+');" type="button" style="margin-left: 0.5%;">修改</button>'+
+								'</div>'+
+								'</div>';
+						$('.guige_div').append(str);
+					}
+				}else{
+					alert('操作失败!');
+				}
+			});
+			$('#showguige').text('隐藏规格');
+		}else{
+			$('.aaaa').css('display','none');
+			$('#showguige').text('显示规格');
+
+		}
+	}
+
+
+	$('.guige_div').on('click','.remove',function(){
+		$(this).parent().parent().remove();
+	});
+
+
+	function remove1(pro_id,config_id){
+
+		url = "{:url('mallProduct/removeConfigInfo')}";
+		postData = {
+			'pro_id' : pro_id,
+			'config_id' : config_id
+		};
+
+		$.post(url,postData,function(result){
+			if(result.status == 1){
+				location.href = result.data;
+			}else{
+				alert('操作失败!');
+			}
+		});
+	}
+
+	$('.guige_div').on('click','.add',function(){
+
+		var str = '<div class="row cl aaaa" >'+
+				'<label class="form-label col-xs-4 col-sm-2"></label>'+
+				'<div class="formControls col-xs-8 col-sm-9 ">'+
+				'<label style="margin-left: 1%;" class="">规格:</label>'+
+				'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="" placeholder="如颜色等" id="content1_name" name="content1_name[]"> ->'+
+				'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="" placeholder="" id="con_content1" name="con_content1[]">'+
+				'<label style="margin-left: 1%;" class="">积分:</label>'+
+				'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8" value="" placeholder="" id="ex_jifen" name="ex_jifen[]">'+
+				'<label style="margin-left: 1%;" class="">换购价:</label>'+
+				'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="" placeholder="" id="unit_price" name="unit_price[]">元'+
+				'<label style="margin-left: 1%;" class="">库存量:</label>'+
+				'<input type="text" style="margin-left: 0.5%;" class="input-text1 input-text1-8"  value="" placeholder="" id="inventory" name="inventory[]">'+
+				'<button class="btn btn-secondary-outline radius remove"  type="button" style="margin-left: 2%;">-</button>'+
+				'<button class="btn btn-secondary-outline radius update" id="update_" onclick="add({$pro_id});" type="button" style="margin-left: 0.5%;">添加</button>'+
+				'</div>'+
+				'</div>';
+
+		$('.guige_div').append(str);
+	});
+
+
+	function update(pro_id,config_id){
+		content1_name = $('#content1_name_'+config_id).val();
+		con_content1 = $('#con_content1_'+config_id).val();
+		unit_price = $('#unit_price_'+config_id).val();
+		ex_jifen = $('#ex_jifen_'+config_id).val();
+		inventory = $('#inventory_'+config_id).val();
+
+		postData = {
+			'pro_id' : pro_id,
+			'config_id' : config_id,
+			'content1_name' : content1_name,
+			'con_content1' : con_content1,
+			'unit_price' : unit_price,
+			'ex_jifen' : ex_jifen,
+			'inventory' : inventory
+		};
+
+
+		url = "{:url('mallProduct/updateConfigInfo')}";
+
+		$.post(url,postData,function(result){
+			if(result.status == 1){
+				location.href = result.data;
+			}else{
+				alert('操作失败!');
+			}
+		});
+	}
+
+	function add(pro_id){
+		content1_name = $('#content1_name').val();
+		con_content1 = $('#con_content1').val();
+		unit_price = $('#unit_price').val();
+		ex_jifen = $('#ex_jifen').val();
+		inventory = $('#inventory').val();
+
+		postData = {
+			'pro_id' : pro_id,
+			'content1_name' : content1_name,
+			'con_content1' : con_content1,
+			'unit_price' : unit_price,
+			'ex_jifen' : ex_jifen,
+			'inventory' : inventory,
+		};
+
+		url = "{:url('mallProduct/addConfigInfo')}";
+
+
+
+		$.post(url,postData,function(result){
+			if(result.status == 1){
+				location.href = result.data;
+			}else{
+				alert('操作失败!');
+			}
+		});
+	}
+
+	//自动填充价格
+	$('#original_price').blur(function(){
+		var original_price = $('#original_price').val();
+		$('#associator_price').val((original_price * $('.associator_discount').val()).toFixed(2));
+	});
+
+	//会员价显示
+	$('.associator_discount').change(function(){
+		var original_price = $('#original_price').val();
+		var dis = $(this).val();
+		var price = original_price * dis;
+		$('#associator_price').val(price.toFixed(2));
+	});
+
+
+
+	function F_Open(id1,id2){
+		$('#'+id1).css('display','none');
+		$('#'+id2).css('display','block');
+		document.getElementById(id2).click();
+	}
+
+</script>
+</body>
+</html>

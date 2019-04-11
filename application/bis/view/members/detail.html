@@ -1,0 +1,173 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		.input-text1-8 {
+			width: 8%;
+			color: #b7a0a0;
+		}
+
+		.input-text1-15 {
+			width: 15%;
+			color: #b7a0a0;
+
+		}
+
+		.input-text1-20 {
+			width: 20%;
+			color: #b7a0a0;
+
+		}
+
+		.input-text1-25 {
+			width: 25%;
+			color: #b7a0a0;
+		}
+
+		.input-text1-35 {
+			width: 35%;
+			color: #b7a0a0;
+		}
+
+		.col-sm-this {
+			width:13%;
+		}
+	</style>
+</head>
+<body>
+<div class="page-container">
+	<form class="form form-horizontal">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">用户名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-25" readonly value="{$res.username}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">用户类型：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.type == 1 ? '普通会员' : ($res.type == 2 ? 'VIP会员' : '批发会员')}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">用户昵称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.nickname}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">真实姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.truename}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">电子邮件：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-25" readonly value="{$res.email}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">身份证号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-25" readonly value="{$res.id_number}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">性别：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="{$res.sex == 1 ? '男' : ($res.sex == 2 ? '女' : '保密')}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">年龄：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="{$res.age}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">所在省市：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.p_name.$res.c_name}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">详细地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-35" readonly value="{$res.address}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">邮编：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="{$res.postcode}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.mobile}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">联系电话：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.telephone}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">QQ：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.qq}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">预存款：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-15" readonly value="{$res.pre_deposit}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">用户积分：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="{$res.jifen}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">注册时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-20" readonly value="{$res.create_time}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">最后登录：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-20" readonly value="{$res.last_login_time}" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">登录次数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="{$res.login_times}" ><label style="margin-left: 1%">次</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2 col-sm-this">已下订单数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 input-text1-8" readonly value="1" ><label style="margin-left: 1%">单</label>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+</html>

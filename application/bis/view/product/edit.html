@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		.input-text1-15 {
+			width: 15%;
+		}
+
+		.input-text1-8 {
+			width: 8%;
+		}
+		label.intro {
+			color: red;
+		}
+
+		#image_c {
+			width: 15%;
+			max-height: 150px;
+		}
+
+		#wx_config_image1_c,#wx_config_image2_c,#wx_config_image3_c,#wx_config_image4_c,#wx_config_image5_c,#wx_config_image6_c,#wx_config_image7_c,#wx_config_image8_c,#wx_config_image9_c,#wx_config_image10_c {
+			width: 15%;
+			max-height: 150px;
+		}
+	</style>
+	<script>
+		function checkParams(){
+			var p_name = document.getElementById('p_name');
+			var original_price = document.getElementById('original_price');
+			var associator_price = document.getElementById('associator_price');
+
+			//验证上传图片问题
+			var image =document.getElementById('image').files;
+
+			if(!p_name.value || p_name.value == ''){
+				alert('请填写商品名称!');
+				return false;
+			}
+
+			if(!original_price.value || original_price.value == ''){
+				alert('请填写商品原价!');
+				return false;
+			}
+			if(!associator_price.value || associator_price.value == ''){
+				alert('请填写商品会员价!');
+				return false;
+			}
+
+			if(!{$pro_res.image} && image.length < 1){
+				alert('请上传商品缩略图!');
+				return false;
+			}
+			return true;
+		}
+	</script>
+</head>
+<body>
+<div class="page-container">
+	<form action="{:url('product/updateProduct')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add" onsubmit="return checkParams();">
+		<input type="hidden" name="pro_id" value="{$pro_res.pro_id}">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 15%;">
+					<select name="cat_id" class="select cat">
+					{volist name="category" id="vo"}
+						<option value="{$vo.id}" {if condition="$pro_res.cat_id eq $vo.id"} selected="selected" {/if}>{$vo.cat_name}</option>
+					{/volist}
+					</select>
+				</span>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$pro_res.p_name}" placeholder="" id="p_name" name="p_name">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品类型：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" id="ts" name="pro_type" value="1" style="margin-top: 0.01%;" {if condition="$pro_res.pro_type eq 1"} checked {/if}><label for="ts" style="margin-left: 1%;margin-right: 2%;">堂食</label>
+				<input type="radio" id="wm" name="pro_type" value="2" style="margin-top: 0.01%;" {if condition="$pro_res.pro_type eq 2"} checked {/if}><label for="wm" style="margin-left: 1%;margin-right: 2%;">外卖</label>
+				<input type="radio" id="both" name="pro_type" value="3" style="margin-top: 0.01%;" {if condition="$pro_res.pro_type eq 3"} checked {/if}><label for="both" style="margin-left: 1%;margin-right: 2%;">堂食&外卖</label>
+				<label class="intro">*</label>
+			</div>
+		</div>
+		<div class="guige_div"></div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">零售价: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin-bottom: 1%;" value="{$pro_res.original_price}" placeholder="" id="original_price" name="original_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* 此价格为标价</label><br>
+				<label style="margin-left: 1%;">会员价: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin: 0.5% 0;" value="{$pro_res.associator_price}" placeholder="" id="associator_price" name="associator_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品头图: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1" id="image" name="image"><img src="" id="image_c" onerror="javascript:this.src='{$no_img_url}'" onclick="F_Open('image_c','image')" >
+				<label style="margin-left: 1%;" class="intro">(请尽量压缩图片大小.)</label><br>
+
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品介绍：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea style="width: 30%;border: solid 1px #ddd" id="intro" name="intro">{$pro_res.intro}</textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品图片: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">图片一: </label>
+				<input type="file" class="input-text1" id="wx_config_image1"  name="wx_config_image1"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image1_c" onclick="F_Open('wx_config_image1_c','wx_config_image1')" ><br>
+				<label style="margin-left: 1%;">图片二: </label>
+				<input type="file" class="input-text1" id="wx_config_image2"  name="wx_config_image2"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image2_c" onclick="F_Open('wx_config_image2_c','wx_config_image2')" ><br>
+				<label style="margin-left: 1%;">图片三: </label>
+				<input type="file" class="input-text1" id="wx_config_image3"  name="wx_config_image3"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image3_c" onclick="F_Open('wx_config_image3_c','wx_config_image3')" ><br>
+				<label style="margin-left: 1%;">图片四: </label>
+				<input type="file" class="input-text1" id="wx_config_image4"  name="wx_config_image4"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image4_c" onclick="F_Open('wx_config_image4_c','wx_config_image4')" ><br>
+				<label style="margin-left: 1%;">图片五: </label>
+				<input type="file" class="input-text1" id="wx_config_image5"  name="wx_config_image5"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image5_c" onclick="F_Open('wx_config_image5_c','wx_config_image5')" ><br>
+				<label style="margin-left: 1%;">图片六: </label>
+				<input type="file" class="input-text1" id="wx_config_image6"  name="wx_config_image6"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image6_c" onclick="F_Open('wx_config_image6_c','wx_config_image6')" ><br>
+				<label style="margin-left: 1%;">图片七: </label>
+				<input type="file" class="input-text1" id="wx_config_image7"  name="wx_config_image7"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image7_c" onclick="F_Open('wx_config_image7_c','wx_config_image7')" ><br>
+				<label style="margin-left: 1%;">图片八: </label>
+				<input type="file" class="input-text1" id="wx_config_image8"  name="wx_config_image8"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image8_c" onclick="F_Open('wx_config_image8_c','wx_config_image8')" ><br>
+				<label style="margin-left: 1%;">图片九: </label>
+				<input type="file" class="input-text1" id="wx_config_image9"  name="wx_config_image9"><img src="" class="img_bottom" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image9_c" onclick="F_Open('wx_config_image9_c','wx_config_image9')" ><br>
+				<label style="margin-left: 1%;">图片十: </label>
+				<input type="file" class="input-text1" id="wx_config_image10"  name="wx_config_image10"><img src="" onerror="javascript:this.src='{$no_img_url}'" id="wx_config_image10_c" onclick="F_Open('wx_config_image10_c','wx_config_image10')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">修&nbsp;改&nbsp;商&nbsp;品</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+	//初始化
+	$(function(){
+		//设置图片
+		$('#image').css('display','none');
+		$('#image_c').attr('src','{$pro_res.image}');
+		$('#wx_config_image1').css('display','none');
+		$('#wx_config_image2').css('display','none');
+		$('#wx_config_image3').css('display','none');
+		$('#wx_config_image4').css('display','none');
+		$('#wx_config_image5').css('display','none');
+		$('#wx_config_image6').css('display','none');
+		$('#wx_config_image7').css('display','none');
+		$('#wx_config_image8').css('display','none');
+		$('#wx_config_image9').css('display','none');
+		$('#wx_config_image10').css('display','none');
+		$('#wx_config_image1_c').attr('src',"{$detail_images[0]}");
+		$('#wx_config_image2_c').attr('src',"{$detail_images[1]}");
+		$('#wx_config_image3_c').attr('src',"{$detail_images[2]}");
+		$('#wx_config_image4_c').attr('src',"{$detail_images[3]}");
+		$('#wx_config_image5_c').attr('src',"{$detail_images[4]}");
+		$('#wx_config_image6_c').attr('src',"{$detail_images[5]}");
+		$('#wx_config_image7_c').attr('src',"{$detail_images[6]}");
+		$('#wx_config_image8_c').attr('src',"{$detail_images[7]}");
+		$('#wx_config_image9_c').attr('src',"{$detail_images[8]}");
+		$('#wx_config_image10_c').attr('src',"{$detail_images[9]}");
+
+	});
+	//自动填充价格
+	$('#original_price').blur(function(){
+		var original_price = $('#original_price').val();
+		$('#associator_price').val(original_price);
+	});
+
+	function F_Open(id1,id2){
+		$('#'+id1).css('display','none');
+		$('#'+id2).css('display','block');
+		document.getElementById(id2).click();
+	}
+
+</script>
+</body>
+</html>

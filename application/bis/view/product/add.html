@@ -1,0 +1,180 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		.input-text1-15 {
+			width: 15%;
+		}
+
+		label.intro {
+			color: red;
+		}
+
+		.config_images{
+			left:20%;
+		}
+	</style>
+	<script>
+		function checkParams(){
+			var p_name = document.getElementById('p_name');
+			var original_price = document.getElementById('original_price');
+			var associator_price = document.getElementById('associator_price');
+			var pro_type = $('input:radio:checked').val();
+
+			//验证上传图片问题
+			var image =document.getElementById('image').files;
+			var config_image1 =document.getElementById('config_image1').files;
+			var config_image2 =document.getElementById('config_image2').files;
+			var config_image3 =document.getElementById('config_image3').files;
+			var config_image4 =document.getElementById('config_image4').files;
+			var wx_config_image1 =document.getElementById('wx_config_image1').files;
+			var wx_config_image2 =document.getElementById('wx_config_image2').files;
+			var wx_config_image3 =document.getElementById('wx_config_image3').files;
+			var wx_config_image4 =document.getElementById('wx_config_image4').files;
+			var wx_config_image5 =document.getElementById('wx_config_image5').files;
+			var wx_config_image6 =document.getElementById('wx_config_image6').files;
+			var wx_config_image7 =document.getElementById('wx_config_image7').files;
+			var wx_config_image8 =document.getElementById('wx_config_image8').files;
+			var wx_config_image9 =document.getElementById('wx_config_image9').files;
+			var wx_config_image10 =document.getElementById('wx_config_image10').files;
+			if(!p_name.value || p_name.value == ''){
+				alert('请填写商品名称!');
+				return false;
+			}
+
+			if(!pro_type || pro_type == 'undefined'){
+				alert('请设置商品类型!');
+				return false;
+			}
+
+			if(!original_price.value || original_price.value == ''){
+				alert('请填写商品原价!');
+				return false;
+			}
+			if(!associator_price.value || associator_price.value == ''){
+				alert('请填写商品会员价!');
+				return false;
+			}
+
+			if(image.length < 1){
+				alert('请上传商品缩略图!');
+				return false;
+			}
+			if(wx_config_image1.length < 1 && wx_config_image2.length < 1 && wx_config_image3.length < 1 && wx_config_image4.length < 1 && wx_config_image5.length < 1 && wx_config_image6.length < 1 && wx_config_image7.length < 1 && wx_config_image8.length < 1 && wx_config_image9.length < 1 && wx_config_image10.length < 1){
+				alert('请上传商品介绍图片!');
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</head>
+<body>
+<div class="page-container">
+	<form action="{:url('product/save')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add" onsubmit="return checkParams();">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 15%;">
+					<select name="cat_id" class="select cat">
+					{volist name="category" id="vo"}
+						<option value="{$vo.id}">{$vo.cat_name}</option>
+					{/volist}
+					</select>
+				</span>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="" placeholder="" id="p_name" name="p_name">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品类型：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" id="ts" name="pro_type" value="1" style="margin-top: 0.01%;"><label for="ts" style="margin-left: 1%;margin-right: 2%;">堂食</label>
+				<input type="radio" id="wm" name="pro_type" value="2" style="margin-top: 0.01%;"><label for="wm" style="margin-left: 1%;margin-right: 2%;">外卖</label>
+				<input type="radio" id="both" name="pro_type" value="3" style="margin-top: 0.01%;"><label for="both" style="margin-left: 1%;margin-right: 2%;">堂食&外卖</label>
+				<label class="intro">*</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">零售价: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin-bottom: 1%;" value="" placeholder="" id="original_price" name="original_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* 此价格为标价</label><br>
+				<label style="margin-left: 1%;">会员价: </label>
+				<input type="text" class="input-text1 input-text1-15" style="margin: 0.5% 0;" value="" placeholder="" id="associator_price" name="associator_price"><label style="margin-left: 1%;">元</label>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品头图：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1" value="" placeholder="" id="image" name="image">
+				<label style="margin-left: 1%;" class="intro">(产品缩略图,请尽量压缩图片大小.)</label><br>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品介绍：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea style="width: 30%;border: solid 1px #ddd" id="intro" name="intro"></textarea>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商品图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<label style="margin-left: 1%;">图片一: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image1" name="wx_config_image[]">
+				<label style="margin-left: 1%;" class="intro">(商品介绍图片最多十张,作为商品介绍显示,至少上传一张.)</label><br>
+				<label style="margin-left: 1%;">图片二: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image2" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片三: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image3" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片四: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image4" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片五: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image5" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片六: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image6" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片七: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image7" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片八: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image8" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片九: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image9" name="wx_config_image[]"><br>
+				<label style="margin-left: 1%;">图片十: </label>
+				<input type="file" class="input-text1" value="" id="wx_config_image10" name="wx_config_image[]">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">添&nbsp;加&nbsp;商&nbsp;品</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/bis/js/product.js"></script>
+
+
+</body>
+</html>

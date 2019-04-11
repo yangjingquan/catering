@@ -1,0 +1,110 @@
+﻿<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		.mar_bottom {
+			margin-bottom: 2%;
+		}
+
+		label.intro {
+			color: red;
+		}
+		#logo_image_c,#env_image1_c,#env_image2_c,#env_image3_c,#env_image4_c,#env_image5_c,#env_image6_c,#qua_image1_c,#qua_image2_c,#qua_image3_c,#qua_image4_c,#qua_image5_c,#qua_image6_c {
+			width: 15%;
+			max-height: 150px;
+		}
+	</style>
+</head>
+<body>
+<div class="page-container">
+	<form action="{:url('bis/saveImgs')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">店铺logo：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1 mar_bottom" id="logo_image" name="logo_image"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="logo_image_c" onclick="F_Open('logo_image_c','logo_image')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">环境图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1 mar_bottom" id="env_image1" name="env_image1"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image1_c" onclick="F_Open('env_image1_c','env_image1')" >
+				<input type="file" class="input-text1 mar_bottom" id="env_image2" name="env_image2"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image2_c" onclick="F_Open('env_image2_c','env_image2')" >
+				<input type="file" class="input-text1 mar_bottom" id="env_image3" name="env_image3"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image3_c" onclick="F_Open('env_image3_c','env_image3')" >
+				<input type="file" class="input-text1 mar_bottom" id="env_image4" name="env_image4"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image4_c" onclick="F_Open('env_image4_c','env_image4')" >
+				<input type="file" class="input-text1 mar_bottom" id="env_image5" name="env_image5"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image5_c" onclick="F_Open('env_image5_c','env_image5')" >
+				<input type="file" class="input-text1 mar_bottom" id="env_image6" name="env_image6"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="env_image6_c" onclick="F_Open('env_image6_c','env_image6')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">资质图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1 mar_bottom" id="qua_image1" name="qua_image1"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image1_c" onclick="F_Open('qua_image1_c','qua_image1')" >
+				<input type="file" class="input-text1 mar_bottom" id="qua_image2" name="qua_image2"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image2_c" onclick="F_Open('qua_image2_c','qua_image2')" >
+				<input type="file" class="input-text1 mar_bottom" id="qua_image3" name="qua_image3"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image3_c" onclick="F_Open('qua_image3_c','qua_image3')" >
+				<input type="file" class="input-text1 mar_bottom" id="qua_image4" name="qua_image4"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image4_c" onclick="F_Open('qua_image4_c','qua_image4')" >
+				<input type="file" class="input-text1 mar_bottom" id="qua_image5" name="qua_image5"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image5_c" onclick="F_Open('qua_image5_c','qua_image5')" >
+				<input type="file" class="input-text1 mar_bottom" id="qua_image6" name="qua_image6"><img src="" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="qua_image6_c" onclick="F_Open('qua_image6_c','qua_image6')" >
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">更&nbsp;新&nbsp;图&nbsp;片</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+	//初始化
+	$(function(){
+		//设置图片
+		$('#logo_image').css('display','none');
+		$('#env_image1').css('display','none');
+		$('#env_image2').css('display','none');
+		$('#env_image3').css('display','none');
+		$('#env_image4').css('display','none');
+		$('#env_image5').css('display','none');
+		$('#env_image6').css('display','none');
+		$('#qua_image1').css('display','none');
+		$('#qua_image2').css('display','none');
+		$('#qua_image3').css('display','none');
+		$('#qua_image4').css('display','none');
+		$('#qua_image5').css('display','none');
+		$('#qua_image6').css('display','none');
+		$('#logo_image_c').attr('src','{$img_res.logo_image}');
+		$('#env_image1_c').attr('src','{$img_res.env_image1}');
+		$('#env_image2_c').attr('src','{$img_res.env_image2}');
+		$('#env_image3_c').attr('src','{$img_res.env_image3}');
+		$('#env_image4_c').attr('src','{$img_res.env_image4}');
+		$('#env_image5_c').attr('src','{$img_res.env_image5}');
+		$('#env_image6_c').attr('src','{$img_res.env_image6}');
+		$('#qua_image1_c').attr('src','{$img_res.qua_image1}');
+		$('#qua_image2_c').attr('src','{$img_res.qua_image2}');
+		$('#qua_image3_c').attr('src','{$img_res.qua_image3}');
+		$('#qua_image4_c').attr('src','{$img_res.qua_image4}');
+		$('#qua_image5_c').attr('src','{$img_res.qua_image5}');
+		$('#qua_image6_c').attr('src','{$img_res.qua_image6}');
+	});
+	function F_Open(id1,id2){
+		$('#'+id1).css('display','none');
+		$('#'+id2).css('display','block');
+		document.getElementById(id2).click();
+	}
+
+</script>
+</body>
+</html>

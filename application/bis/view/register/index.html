@@ -1,0 +1,118 @@
+<!--包含头部文件-->
+{include file="public/header" /}
+<div class="cl pd-5 bg-1 bk-gray mt-20"> <h1>商户入驻申请</h1></div>
+<article class="page-container">
+	<form class="form form-horizontal"  method="post" enctype="multipart/form-data" action="{:url('register/register')}">
+		<label style="font-size: 20px;font-weight: bolder">账号信息：</label>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">用户名:</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="username">
+				<label class="star_label">** 只能是4到16位英文或数字组成</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">密码:</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="password" class="input-text1" value="" placeholder="" id="" name="password">
+				<label class="star_label">** 密码只能为英文+数字,长度是6-20个字符</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">确认密码:</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="password" class="input-text1" value="" placeholder="" id="" name="password_confirm">
+				<label class="star_label">** 密码只能为英文+数字,长度是6-20个字符</label>
+			</div>
+		</div>
+	<label style="font-size: 20px;font-weight: bolder;">商家信息：</label>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商户名称：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="bis_name">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">经营品牌：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="brand">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">负责人：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="leader">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择地区：</label>
+			<div class="formControls col-xs-8 col-sm-2">
+				<span class="select-box">
+				<select name="city_id" class="select cityId">
+					<option value="0">--请选择--</option>
+						{volist name="provinces" id="vo"}
+							<option value="{$vo.id}">{$vo.p_name}</option>
+						{/volist}
+				</select>
+				</span>
+			</div>
+			<div class="formControls col-xs-8 col-sm-2">
+				<span class="select-box">
+				<select name="se_city_id" class="select se_city_id">
+					<option value="0">--请选择--</option>
+				</select>
+				</span>
+			</div><label class="star_label">**</label>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">详细地址：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="address">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">联系电话：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="link_tel">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">负责人手机：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="link_mobile">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">电子邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="" placeholder="" id="" name="email">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 申请</button>
+			</div>
+		</div>
+
+	</form>
+</article>
+
+<!--包含尾部文件-->
+{include file="public/footer" /}
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/bis/js/register.js"></script>
+
+<script>
+	var SCOPE = {
+		'city_url' : "{:url('api/city/getCitysByParentId')}",
+	}
+</script>
+</body>
+</html>

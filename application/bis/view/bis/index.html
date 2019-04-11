@@ -1,0 +1,353 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<LINK rel="Bookmark" href="/favicon.ico" >
+	<LINK rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+	<style>
+		label.intro {
+			color: red;
+		}
+		#acode_c{
+			width: 15%;
+			max-height: 150px;
+		}
+
+		.len40{
+			width: 40%;
+		}
+
+		.len60{
+			width: 60%;
+		}
+	</style>
+	<script>
+		function checkParams(){
+			var bis_name = document.getElementById('bis_name');
+			var brand = document.getElementById('brand');
+			var leader = document.getElementById('leader');
+			var link_tel = document.getElementById('link_tel');
+			var link_mobile = document.getElementById('link_mobile');
+			var email = document.getElementById('email');
+			var scope = document.getElementById('scope');
+			var business_time = document.getElementById('business_time');
+			var lunch_box_fee = document.getElementById('lunch_box_fee');
+			var distribution_fee = document.getElementById('distribution_fee');
+			var min_price = document.getElementById('min_price');
+			var appid = document.getElementById('appid');
+			var mchid = document.getElementById('mchid');
+			var key = document.getElementById('key');
+			var notify_url = document.getElementById('notify_url');
+
+			if(!appid.value || appid.value == '' || appid.value == 0){
+				alert('请填写小程序id(appid)!');
+				return false;
+			}
+			if(!mchid.value || mchid.value == '' || mchid.value == 0){
+				alert('请填写商户号!');
+				return false;
+			}
+
+			if(!key.value || key.value == '' || key.value == 0){
+				alert('请填写支付密钥!');
+				return false;
+			}
+			if(!notify_url.value || notify_url.value == '' || notify_url.value == 0){
+				alert('请填写回调地址!');
+				return false;
+			}
+
+			var logistics_status = $("input[name='logistics_status']:checked").val();
+			if(logistics_status == 1){
+				if(!fahuo_template_id.value || fahuo_template_id.value == ''){
+					alert('请填写发货模板id!');
+					return false;
+				}
+			}
+
+			if(!bis_name.value || bis_name.value == ''){
+				alert('请填写商户名称!');
+				return false;
+			}
+			if(!brand.value || brand.value == ''){
+				alert('请填写经营品牌!');
+				return false;
+			}
+
+			if(!leader.value || leader.value == ''){
+				alert('请填写负责人!');
+				return false;
+			}
+			if(!link_tel.value || link_tel.value == ''){
+				alert('请填写联系电话!');
+				return false;
+			}
+			if(!link_mobile.value || link_mobile.value == ''){
+				alert('请填写负责人手机!');
+				return false;
+			}
+			if(!email.value || email.value == ''){
+				alert('请填写电子邮箱!');
+				return false;
+			}
+			if(!scope.value || scope.value == ''){
+				alert('请设置配送范围!');
+				return false;
+			}
+			if(parseFloat(min_price.value)  < 0.01){
+				alert('请设置起送价格!');
+				return false;
+			}
+			if(!business_time.value || business_time.value == ''){
+				alert('请设置营业时间!');
+				return false;
+			}
+			if(!lunch_box_fee.value || lunch_box_fee.value == ''){
+				alert('请设置单个餐盒价格!');
+				return false;
+			}
+			if(!distribution_fee.value || distribution_fee.value == ''){
+				alert('请设置配送费!');
+				return false;
+			}
+			return true;
+		}
+	</script>
+</head>
+<body>
+<div class="page-container">
+	<form action="{:url('bis/save')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add" onsubmit="return checkParams();">
+		<input type="hidden" name="id" value="{$bis_res.id}">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商户名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.bis_name}" placeholder="" id="bis_name" name="bis_name">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">选择地区：</label>
+			<div class="formControls col-xs-8 col-sm-2">
+				<span class="select-box">
+				<select name="city_id" class="select cityId">
+					<option value="0">--请选择--</option>
+					{volist name="provinces" id="vo"}
+					<option value="{$vo.id}" {if condition="$province_id eq $vo.id"} selected="selected" {/if}>{$vo.p_name}</option>
+					{/volist}
+				</select>
+				</span>
+			</div>
+			<div class="formControls col-xs-8 col-sm-2">
+				<span class="select-box">
+				<select name="se_city_id" class="select se_city_id">
+					<option value="0">--请选择--</option>
+					{volist name="citys" id="vo"}
+					<option value="{$vo.id}" {if condition="$city_id eq $vo.id"} selected="selected" {/if}>{$vo.c_name}</option>
+					{/volist}
+				</select>
+				</span>
+			</div><label class="star_label">**</label>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">详细地址：</label>
+			<div class="formControls col-xs-8 col-sm-3">
+				<input type="text" class="input-text1" value="{$bis_res.address}" placeholder="" id="address" name="address">
+				<label class="star_label">**</label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">经营品牌：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.brand}" placeholder="" id="brand" name="brand">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">负责人：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.leader}" placeholder="" id="leader" name="leader">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">联系电话：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.link_tel}" placeholder="" id="link_tel" name="link_tel">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">负责人手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.link_mobile}" placeholder="" id="link_mobile" name="link_mobile">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">电子邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.email}" placeholder="" id="email" name="email">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">配送范围：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.scope}" placeholder="" id="scope" name="scope">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">起送价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" style="width: 15%;" value="{$bis_res.min_price}" placeholder="" id="min_price" name="min_price">元
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">营业时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.business_time}" placeholder="例:10:00-19:00" id="business_time"  name="business_time">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">小程序支付：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" value="1" {if condition="$bis_res.is_pay eq 1"} checked {/if} id="is_pay" name="is_pay">
+				<label for="is_pay">开启</label>
+				<input type="radio" value="0" {if condition="$bis_res.is_pay eq 0"} checked {/if} id="not_pay" name="is_pay">
+				<label for="not_pay">关闭</label>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">餐盒费：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" style="width: 15%;" value="{$bis_res.lunch_box_fee}"  id="lunch_box_fee"  name="lunch_box_fee">元/个
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">配送费：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" style="width: 15%;" value="{$bis_res.distribution_fee}" id="distribution_fee"  name="distribution_fee">元
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">需要物流：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="radio" value="0" {if condition="$bis_res.logistics_status eq 0"} checked {/if} id="no_logistics" name="logistics_status">
+				<label for="no_logistics">不需要</label>
+				<input type="radio" value="1" {if condition="$bis_res.logistics_status eq 1"} checked {/if} id="logistics" name="logistics_status">
+				<label for="logistics">需要</label>
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">小程序id(Appid)：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len40" value="{$bis_res.appid}" id="appid" name="appid">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">secret：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len40" value="{$bis_res.secret}" id="secret" name="secret">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商户号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1" value="{$bis_res.mchid}" id="mchid" name="mchid">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">支付密钥：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len40" value="{$bis_res.key}" id="key" name="key">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商城回调地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len60" value="{$bis_res.notify_url}" id="notify_url" name="notify_url">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">点餐&外卖回调地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len60" value="{$bis_res.catering_notify_url}" id="catering_notify_url" name="catering_notify_url">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">预定回调地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len60" value="{$bis_res.reserve_notify_url}" id="reserve_notify_url" name="reserve_notify_url">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">收银回调地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len60" value="{$bis_res.collect_notify_url}" id="collect_notify_url" name="collect_notify_url">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">店铺简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea style="width: 30%;border: solid 1px #ddd" id="intro" name="intro">{$bis_res.intro}</textarea>
+				<!--<input type="text" class="input-text1" value="{$bis_res.intro}" placeholder="" id="intro" name="intro">-->
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">店铺二维码: </label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="file" class="input-text1 " id="acode" name="acode"><img src="" class="img_bottom" onerror="javascript:this.src='http://cpcy.58canyin.com:88/uploads/images/no_img.png'" id="acode_c" >
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">更&nbsp;新&nbsp;资&nbsp;料</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC__/bis/js/register.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#acode').css('display','none');
+		$('#acode_c').attr('src','{$bis_res.acode}');
+	});
+
+</script>
+
+<script>
+	var SCOPE = {
+		'city_url' : "{:url('api/city/getCitysByParentId')}",
+	}
+</script>
+</body>
+</html>

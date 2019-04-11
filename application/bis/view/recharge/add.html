@@ -1,0 +1,34 @@
+{include file="public/header" /}
+<body>
+<style>
+	.alipay{text-decoration: none;cursor:pointer;}
+	.alipay:hover{text-decoration: none;cursor:pointer;}
+</style>
+<div class="page-container">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" method="post" action="{:url('recharge/rechargeByWxpay')}">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>充值金额：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" style="width: 30%;" class="input-text" value="" placeholder="" id="amount" name="amount">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 微信支付</button>
+				<!--<a class="alipay btn btn-primary radius" href="{:url('recharge/rechargeByAlipay')}"><i class="Hui-iconfont">&#xe632;</i> 支付宝支付</a>-->
+				<a class="btn btn-primary radius" href="javascript:void()" onclick="rechargeByAlipay()"><i class="Hui-iconfont">&#xe632;</i> 支付宝支付</a>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+	function rechargeByAlipay() {
+		var amount = document.getElementById('amount').value;
+		location.href = 'rechargeByAlipay?amount='+amount;
+	}
+</script>
+</div>
+<!--包含头部文件-->
+{include file="public/footer" /}
