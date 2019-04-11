@@ -260,10 +260,10 @@ class Orders extends Model{
     }
 
     //获取所有订单信息
-    public function getAllMallOrders($limit, $offset, $date_from, $date_to, $order_status, $order_from)
+    public function getAllMallOrders($limit, $offset, $date_from, $date_to, $order_status, $order_from,$supply_order_status)
     {
         $bis_id = session('bis_id', '', 'bis');
-        $where = "mo.bis_id = " . $bis_id . " and mem.bis_id = " . $bis_id . " and  mo.status = 1 and pay.status = 1";
+        $where = "mo.bis_id = " . $bis_id . " and mem.bis_id = " . $bis_id . " and  mo.status = 1 and pay.status = 1 and mo.is_supply_order = ".$supply_order_status;
 
         if ($order_from != 0) {
             $where .= " and mo.order_from = $order_from ";
@@ -284,7 +284,7 @@ class Orders extends Model{
             'mo.create_time' => 'desc'
         ];
 
-        $res = Db::table('cy_mall_main_orders')->alias('mo')->field('mo.id as order_id,mo.order_no,mode.post_mode,mem.nickname,mo.rec_name,pay.payment,mo.express_no,mo.order_status,mo.order_from,mo.is_supply_order')
+        $res = Db::table('cy_mall_main_orders')->alias('mo')->field('mo.id as order_id,mo.order_no,mode.post_mode,mem.nickname,mo.rec_name,pay.payment,mo.express_no,mo.order_status,mo.order_from,mo.order_type,mo.jifen')
             ->join('store_payment pay', 'mo.payment = pay.id', 'LEFT')
             ->join('store_post_mode mode', 'mo.mode = mode.id', 'LEFT')
             ->join('cy_members mem', 'mo.mem_id = mem.mem_id', 'LEFT')
@@ -297,10 +297,10 @@ class Orders extends Model{
     }
 
     //获取所有订单数量
-    public function getAllMallOrdersCount($date_from, $date_to, $order_status, $order_from)
+    public function getAllMallOrdersCount($date_from, $date_to, $order_status, $order_from,$supply_order_status)
     {
         $bis_id = session('bis_id', '', 'bis');
-        $where = "mo.bis_id = " . $bis_id . " and mem.bis_id = " . $bis_id . " and  mo.status = 1 and pay.status = 1";
+        $where = "mo.bis_id = " . $bis_id . " and mem.bis_id = " . $bis_id . " and  mo.status = 1 and pay.status = 1 and mo.is_supply_order = ".$supply_order_status;
 
         if ($order_from != 0) {
             $where .= " and mo.order_from = $order_from ";

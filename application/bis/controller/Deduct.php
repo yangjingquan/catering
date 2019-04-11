@@ -9,7 +9,7 @@ class Deduct extends Base {
 
     const PAGE_SIZE = 20;
 
-    //充值记录
+    //扣款记录
     public function index(){
         $bis_id = session('bis_id','','bis');
         $current_page = input('get.current_page',1,'intval');

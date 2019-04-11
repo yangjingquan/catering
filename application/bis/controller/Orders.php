@@ -7,6 +7,8 @@ use think\Exception;
 class Orders extends Base {
 
     const BIS_CATERING_TYPE = 2;
+    const NOT_SUPPLY_ORDER = 0;
+    const IS_SUPPLY_ORDER = 1;
 
     //点餐订单列表
     public function dc_index(){
@@ -170,7 +172,7 @@ class Orders extends Base {
         return $this->success('取消订单成功!','Orders/yd_index');
     }
 
-    //商城订单列表
+    //商城普通订单列表
     public function mall_index(){
         //获取参数
         $date_from = input('get.date_from');
@@ -182,11 +184,40 @@ class Orders extends Base {
         $limit = 20;
         $offset = ($current_page - 1) * $limit;
         //总数量
-        $count = model('Orders')->getAllMallOrdersCount($date_from, $date_to, $order_status, $order_from);
+        $count = model('Orders')->getAllMallOrdersCount($date_from, $date_to, $order_status, $order_from,self::NOT_SUPPLY_ORDER);
         //总页码
         $pages = ceil($count / $limit);
         //结果集
-        $res = model('Orders')->getAllMallOrders($limit, $offset, $date_from, $date_to, $order_status, $order_from);
+        $res = model('Orders')->getAllMallOrders($limit, $offset, $date_from, $date_to, $order_status, $order_from,self::NOT_SUPPLY_ORDER);
+        return $this->fetch('', [
+            'res' => $res,
+            'pages' => $pages,
+            'count' => $count,
+            'current_page' => $current_page,
+            'date_from' => $date_from,
+            'date_to' => $date_to,
+            'order_status' => $order_status,
+            'order_from' => $order_from,
+        ]);
+    }
+
+    //商城供货订单列表
+    public function mall_supply_index(){
+        //获取参数
+        $date_from = input('get.date_from');
+        $date_to = input('get.date_to');
+        $current_page = input('get.current_page', 1, 'intval');
+        $order_status = input('get.order_status', '0', 'intval');
+        $order_from = input('get.order_from', 0, 'intval');
+
+        $limit = 20;
+        $offset = ($current_page - 1) * $limit;
+        //总数量
+        $count = model('Orders')->getAllMallOrdersCount($date_from, $date_to, $order_status, $order_from,self::IS_SUPPLY_ORDER);
+        //总页码
+        $pages = ceil($count / $limit);
+        //结果集
+        $res = model('Orders')->getAllMallOrders($limit, $offset, $date_from, $date_to, $order_status, $order_from,self::IS_SUPPLY_ORDER);
         return $this->fetch('', [
             'res' => $res,
             'pages' => $pages,
