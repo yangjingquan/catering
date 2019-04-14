@@ -76,7 +76,7 @@ class MallProducts extends Model{
         $where = [
             'pro.id'  => $id
         ];
-        $res = Db::table('cy_mall_products')->alias('pro')->field('pro.id as pro_id,pro.p_name,pro.unit,pro.producing_area,pro.ex_jifen,pro.original_price,pro.associator_discount,pro.associator_price,weight,pro.listorder,pro.huohao,pro.keywords,pro.introduce,pro.wx_introduce,img.image,img.thumb,img.config_image1,img.config_image2,img.config_image3,img.config_image4,img.wx_config_image1,img.wx_config_image2,img.wx_config_image3,img.wx_config_image4,img.wx_config_image5,img.wx_config_image6,img.wx_config_image7,img.wx_config_image8,img.wx_config_image9,img.wx_config_image10')
+        $res = Db::table('cy_mall_products')->alias('pro')->field('pro.id as pro_id,pro.p_name,pro.unit,pro.producing_area,pro.ex_jifen,pro.original_price,pro.associator_discount,pro.associator_price,weight,pro.listorder,pro.huohao,pro.keywords,pro.introduce,pro.supply_pro_id,pro.wx_introduce,img.image,img.thumb,img.config_image1,img.config_image2,img.config_image3,img.config_image4,img.wx_config_image1,img.wx_config_image2,img.wx_config_image3,img.wx_config_image4,img.wx_config_image5,img.wx_config_image6,img.wx_config_image7,img.wx_config_image8,img.wx_config_image9,img.wx_config_image10')
             ->join('cy_mall_pro_images img','pro.id = img.p_id','LEFT')
             ->where($where)
             ->find();

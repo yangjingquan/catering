@@ -8,7 +8,7 @@ class SupplyProducts extends Model{
     //查询商品
     public function getAllProducts($limit, $offset, $date_from, $date_to,$pro_name){
         $bis_id = session('bis_id','','bis');
-        $where = " pro.status <> -1 and on_sale = 1";
+        $where = " pro.status <> -1";
         if($date_from){
             $new_date_from = $date_from.' 00:00:00';
             $where .= " and pro.create_time >= '$new_date_from'";
@@ -55,14 +55,17 @@ class SupplyProducts extends Model{
     //查询商品数量
     public function getAllProductCount($date_from = '',$date_to = '',$pro_name = ''){
         $where = " status <> -1";
+
         if($date_from){
-            $where .= " and create_time >= '$date_from'";
+            $new_date_from = $date_from.' 00:00:00';
+            $where .= " and pro.create_time >= '$new_date_from'";
         }
         if($date_to){
-            $where .= " and create_time < '$date_to'";
+            $new_date_to = $date_to.' 23:59:59';
+            $where .= " and pro.create_time < '$new_date_to'";
         }
         if($pro_name){
-            $where .= " and p_name like '%$pro_name%'";
+            $where .= " and pro.p_name like '%$pro_name%'";
         }
 
         $res = Db::table('store_supply_products')->where($where)->count();

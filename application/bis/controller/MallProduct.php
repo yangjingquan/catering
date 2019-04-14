@@ -261,7 +261,29 @@ class MallProduct extends Base {
         $id = input('get.id');
         $on_sale = input('get.on_sale');
         $data['on_sale'] = $on_sale;
-        $res = Db::table('cy_mall_products')->where('id = '.$id)->update($data);
+
+        Db::startTrans();
+        try{
+            if($on_sale == 1){
+                //判断是否是供货商品
+                $pro_res = model('MallProducts')->getProInfoById($id);
+                $supplyProId = $pro_res['supply_pro_id'];
+
+                if(!empty($supplyProId) || $supplyProId != 0 || $supplyProId != ''){
+                    //获取供货商品上下架状态
+                    $supplyProInfo = Model('SupplyProducts')->getProInfoById($supplyProId);
+                    $supply_pro_on_sale = $supplyProInfo['on_sale'];
+                    if($supply_pro_on_sale == 0){
+                        throw new Exception('供货商品已下架');
+                    }
+                }
+            }
+            $res = Db::table('cy_mall_products')->where('id = '.$id)->update($data);
+            Db::commit();
+        }catch (Exception $e){
+            Db::rollback();
+            $this->error($e->getMessage());
+        }
 
         if($res){
             if($on_sale == 1){
