@@ -48,7 +48,8 @@
 			<label class="form-label col-xs-4 col-sm-2">订单状态：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="checkbox" checked disabled id="sta1" name="order_status" value="1" style="margin-top: 0.01%;"><label for="sta1" style="margin-left: 1%;margin-right: 2%;">已点餐</label>
-				<input type="checkbox" {if condition="$order_info.order_status gt 1"} checked disabled {/if} id="sta2" name="order_status" value="2" style="margin-top: 0.01%;"><label for="sta2" style="margin-left: 1%;margin-right: 2%;">完成</label>
+				<input type="checkbox" {if condition="$order_info.order_status egt 2"} checked disabled {/if} {if condition="$order_info.order_status lt 1"} disabled {/if} id="sta2" name="order_status" value="2" style="margin-top: 0.01%;"><label for="sta2" style="margin-left: 1%;margin-right: 2%;">已付款</label>
+				<input type="checkbox" {if condition="$order_info.order_status egt 3"} checked disabled {/if} {if condition="$order_info.order_status lt 2"} disabled {/if} id="sta3" name="order_status" value="3" style="margin-top: 0.01%;"><label for="sta3" style="margin-left: 1%;margin-right: 2%;">完成</label>
 			</div>
 		</div>
 

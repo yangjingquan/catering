@@ -31,7 +31,8 @@
 			<div style="margin-top: 0.5%;"> 订单状态:
 				<input style="margin-left: 1%;" type="radio" name="order_status" value="0" id="all" {if condition="$order_status eq 0"} checked {/if} ><label for="all" style="margin-left: 0.5%;margin-right: 0.5%;">全部</label>
 				<input type="radio" name="order_status" value="1" id="yidiancan" {if condition="$order_status eq 1"} checked {/if}><label for="yidiancan" style="margin-left: 0.5%;margin-right: 0.5%;">已点餐</label>
-				<input type="radio" name="order_status" value="2" id="wancheng" {if condition="$order_status eq 2"} checked {/if} ><label for="wancheng" style="margin-left: 0.5%;margin-right: 0.5%;">完成</label>
+				<input type="radio" name="order_status" value="2" id="yifukuan" {if condition="$order_status eq 2"} checked {/if}><label for="yifukuan" style="margin-left: 0.5%;margin-right: 0.5%;">已付款</label>
+				<input type="radio" name="order_status" value="3" id="wancheng" {if condition="$order_status eq 3"} checked {/if} ><label for="wancheng" style="margin-left: 0.5%;margin-right: 0.5%;">完成</label>
 				<button name="" id="" class="btn btn-success radius" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
 			</div>
 		</form>
@@ -85,7 +86,7 @@
 			}
 			var date_from = $('#logmin').val();
 			var date_to = $('#logmax').val();
-			location.href = "index?current_page="+choose_page+"&date_from="+date_from+"&date_to="+date_to;
+			location.href = "dc_index?current_page="+choose_page+"&date_from="+date_from+"&date_to="+date_to;
 		}
 	});
 </script>

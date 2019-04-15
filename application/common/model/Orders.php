@@ -393,7 +393,11 @@ class Orders extends Model{
         return $res;
     }
 
-
+    //根据id获取点餐/外卖主订单信息
+    public function getMainOrderOnly($orderId){
+        $res = Db::table('cy_main_orders')->where('id = '.$orderId)->find();
+        return $res;
+    }
 }
 
 ?>

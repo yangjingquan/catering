@@ -106,7 +106,23 @@ class Orders extends Base {
             'update_time'  => date('Y-m-d H:i:s')
         ];
 
-        $res = Db::table('cy_main_orders')->where('id = '.$param['order_id'])->update($data);
+        Db::startTrans();
+        try{
+            //若置状态为已完成，加积分
+            if($param['order_status'] == 3 && $param['type'] == 1){
+                //获取当前订单信息
+                $orderInfo = Model('Orders')->getMainOrderOnly($param['order_id']);
+                $openid = $orderInfo['mem_id'];
+                $bisId = $orderInfo['bis_id'];
+                $totalAmount = $orderInfo['total_amount'];
+                $OrderNo = $orderInfo['order_no'];
+                $this->addJifen($bisId,$openid,$totalAmount,$OrderNo);
+            }
+            $res = Db::table('cy_main_orders')->where('id = '.$param['order_id'])->update($data);
+            Db::commit();
+        }catch (Exception $e){
+            Db::rollback();
+        }
 
         if($param['type'] == 1){
             return $this->success('修改订单状态成功!','Orders/dc_index');
@@ -304,5 +320,37 @@ class Orders extends Base {
         $res = Db::table('cy_mall_main_orders')->where('id = ' . $param['order_id'])->update($data);
 
         return $this->success('修改订单状态成功!');
+    }
+
+    //会员增加积分
+    public function addJifen($bisId,$openid,$total_amount,$orderNo){
+        //获取积分比例
+        $bisInfo = Db::table('cy_bis')->where('id = '.$bisId)->find();
+        $jifen_ratio = $bisInfo['jifen_ratio'];
+        if($jifen_ratio > 0){
+            //可获得积分
+            $jifen = floor($total_amount / $jifen_ratio);
+            if($jifen > 0){
+                //更新会员积分
+                Db::table('cy_members')->where("mem_id = '$openid'")->setInc('jifen',$jifen);
+                //生成积分明细
+                $this->createJifenDetail($openid,$jifen,$orderNo);
+            }
+        }
+
+        return true;
+    }
+
+    //生成积分明细
+    public function createJifenDetail($openid,$jifen,$order_no){
+        //生成积分明细记录
+        $jf_data = [
+            'mem_id'  => $openid,
+            'changed_jifen'  => $jifen,
+            'type'  => 1,
+            'remark'  => $order_no,
+            'create_time'  => date('Y-m-d H:i:s'),
+        ];
+        Db::table('cy_jifen_detailed')->insert($jf_data);
     }
 }

@@ -243,6 +243,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">积分比例：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				每消费 <input type="text" class="input-text1" style="width: 5%;" value="{$bis_res.jifen_ratio}" id="jifen_ratio"  name="jifen_ratio"> 元可获得1积分
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">需要物流：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="radio" value="0" {if condition="$bis_res.logistics_status eq 0"} checked {/if} id="no_logistics" name="logistics_status">

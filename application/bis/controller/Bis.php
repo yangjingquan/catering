@@ -79,6 +79,7 @@ class Bis extends Base {
             'min_price' => $param['min_price'],
             'lunch_box_fee' => $param['lunch_box_fee'],
             'distribution_fee' => $param['distribution_fee'],
+            'jifen_ratio' => $param['jifen_ratio'],
             'business_time' => $param['business_time'],
             'positions' => $location,
             'update_time' => date('Y-m-d H:i:s')
@@ -233,5 +234,15 @@ class Bis extends Base {
     public function getCityInfo($cityId){
         $res = Db::table('store_city')->where("id = '$cityId'")->find();
         return $res['c_name'];
+    }
+
+    //店铺余额
+    public function my_balance(){
+        $bis_id = session('bis_id','','bis');
+        $res = Db::table('cy_bis')->where('id = '.$bis_id)->find();
+
+        return $this->fetch('',[
+            'bis_res'  => $res
+        ]);
     }
 }
