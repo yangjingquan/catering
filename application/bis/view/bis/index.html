@@ -243,9 +243,15 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">积分比例：</label>
+			<label class="form-label col-xs-4 col-sm-2">消费积分比例：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				每消费 <input type="text" class="input-text1" style="width: 5%;" value="{$bis_res.jifen_ratio}" id="jifen_ratio"  name="jifen_ratio"> 元可获得1积分
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">充值积分比例：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				每充值 <input type="text" class="input-text1" style="width: 5%;" value="{$bis_res.mem_jifen_ratio}" id="mem_jifen_ratio"  name="mem_jifen_ratio"> 元可获得1积分
 			</div>
 		</div>
 		<div class="row cl">
@@ -311,6 +317,13 @@
 			<label class="form-label col-xs-4 col-sm-2">收银回调地址：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text1 len60" value="{$bis_res.collect_notify_url}" id="collect_notify_url" name="collect_notify_url">
+				<label style="margin-left: 1%;" class="intro">* </label>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">充值回调地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text1 len60" value="{$bis_res.recharge_notify_url}" id="recharge_notify_url" name="recharge_notify_url">
 				<label style="margin-left: 1%;" class="intro">* </label>
 			</div>
 		</div>
