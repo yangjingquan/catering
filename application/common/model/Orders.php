@@ -5,8 +5,7 @@ use think\Db;
 class Orders extends Model{
 
     //获取点餐所有订单信息
-    public function getDcAllOrders($limit, $offset, $date_from, $date_to,$order_status){
-        $bis_id = session('bis_id','','bis');
+    public function getDcAllOrders($bis_id,$limit, $offset, $date_from, $date_to,$order_status){
         $where = "mo.type = 1 and mo.bis_id = ".$bis_id." and  mo.status = 1";
 
         if($date_from){
@@ -24,7 +23,7 @@ class Orders extends Model{
             'mo.create_time'  => 'desc'
         ];
 
-        $res = Db::table('cy_main_orders')->alias('mo')->field('mo.id as order_id,mo.table_id,mo.order_no,mo.order_status,mo.total_amount,mo.remark,mo.create_time')
+        $res = Db::table('cy_main_orders')->alias('mo')->field('mo.id as order_id,mo.table_id,mo.order_no,mo.order_status,mo.total_amount,mo.remark,mo.create_time,mo.is_new,mo.bis_id')
             ->join('cy_members mem','mo.mem_id = mem.mem_id','LEFT')
             ->where($where)
             ->order($listorder)
@@ -34,8 +33,7 @@ class Orders extends Model{
     }
 
     //获取点餐所有订单数量
-    public function getDcAllOrdersCount($date_from,$date_to,$order_status){
-        $bis_id = session('bis_id','','bis');
+    public function getDcAllOrdersCount($bis_id,$date_from,$date_to,$order_status){
         $where = "mo.type = 1 and mo.bis_id = ".$bis_id." and  mo.status = 1";
 
         if($date_from){
@@ -397,6 +395,13 @@ class Orders extends Model{
     public function getMainOrderOnly($orderId){
         $res = Db::table('cy_main_orders')->where('id = '.$orderId)->find();
         return $res;
+    }
+
+    //更新点餐订单为旧订单
+    public function updateToOldOrder($id){
+        $data['is_new'] = 0;
+        Db::table('cy_main_orders')->where('id = '.$id)->update($data);
+        return true;
     }
 }
 

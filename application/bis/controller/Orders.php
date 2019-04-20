@@ -13,6 +13,7 @@ class Orders extends Base {
     //点餐订单列表
     public function dc_index(){
         //获取参数
+        $bis_id = session('bis_id','','bis');
         $date_from = input('get.date_from');
         $date_to = input('get.date_to');
         $current_page = input('get.current_page',1,'intval');
@@ -20,11 +21,11 @@ class Orders extends Base {
         $limit = 10;
         $offset = ($current_page - 1) * $limit;
         //总数量
-        $count = model('Orders')->getDcAllOrdersCount($date_from, $date_to, $order_status);
+        $count = model('Orders')->getDcAllOrdersCount($bis_id,$date_from, $date_to, $order_status);
         //总页码
         $pages = ceil($count / $limit);
         //结果集
-        $res = model('Orders')->getDcAllOrders($limit, $offset, $date_from, $date_to,$order_status);
+        $res = model('Orders')->getDcAllOrders($bis_id,$limit, $offset, $date_from, $date_to,$order_status);
 
         return $this->fetch('',[
             'res'  => $res,
@@ -34,6 +35,7 @@ class Orders extends Base {
             'date_from'  => $date_from,
             'date_to'  => $date_to,
             'order_status'  => $order_status,
+            'bis_id'  => $bis_id,
         ]);
     }
 
@@ -41,10 +43,19 @@ class Orders extends Base {
     public function dc_detail(){
         //获取参数
         $id = input('get.id');
-        //获取订单详情
-        $order_info = Model('Orders')->getDcOrderInfoById($id);
-        //获取订单内商品信息
-        $sub_order_info = Model('Orders')->getDcProductInfoById($id);
+        Db::startTrans();
+        try{
+            //获取订单详情
+            $order_info = Model('Orders')->getDcOrderInfoById($id);
+            //获取订单内商品信息
+            $sub_order_info = Model('Orders')->getDcProductInfoById($id);
+            //更新订单为旧订单
+            Model('Orders')->updateToOldOrder($id);
+
+            Db::commit();
+        }catch (Exception $e){
+            Db::rollback();
+        }
 
         return $this->fetch('',[
             'order_info'   => $order_info,
@@ -352,5 +363,11 @@ class Orders extends Base {
             'create_time'  => date('Y-m-d H:i:s'),
         ];
         Db::table('cy_jifen_detailed')->insert($jf_data);
+    }
+
+    public function getNewOrdersCount(){
+        $bis_id = input('post.bis_id');
+        $res = Db::table('cy_main_orders')->where('is_new = 1 and status = 1 and bis_id = '.$bis_id)->count();
+        return show(1,'success',$res);
     }
 }
