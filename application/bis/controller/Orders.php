@@ -17,7 +17,7 @@ class Orders extends Base {
         $date_from = input('get.date_from');
         $date_to = input('get.date_to');
         $current_page = input('get.current_page',1,'intval');
-        $order_status = input('get.order_status',0,'intval');
+        $order_status = input('get.order_status',-1,'intval');
         $limit = 10;
         $offset = ($current_page - 1) * $limit;
         //总数量

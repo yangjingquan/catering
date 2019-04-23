@@ -96,6 +96,28 @@ class Recharge extends Model{
 
         return $res;
     }
+
+    //小程序内余额充值/消费明细
+    public function getBalanceDetail($bis_id,$limit,$offset){
+        $res = Db::table('store_member_recharge_records')->alias('r')->field('r.id as r_id,r.amount,r.type,.r.created_at,m.nickname')
+            ->join('cy_members m','m.mem_id = r.openid','left')
+            ->where('r.bis_id = '.$bis_id.' and r.recharge_status = 2 and r.bis_type = 2')
+            ->order('r.created_at desc')
+            ->limit($offset,$limit)
+            ->select();
+
+        return $res;
+    }
+
+    //小程序内余额充值/消费记录数量
+    public function getBalanceCount($bis_id){
+        $res = Db::table('store_member_recharge_records')->alias('r')
+            ->join('cy_members m','m.mem_id = r.openid','left')
+            ->where('r.bis_id = '.$bis_id.' and r.recharge_status = 2 and r.bis_type = 2')
+            ->count();
+
+        return $res;
+    }
 }
 
 ?>

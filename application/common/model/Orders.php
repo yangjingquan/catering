@@ -16,7 +16,7 @@ class Orders extends Model{
             $new_date_to = $date_to.' 23:59:59';
             $where .= " and mo.create_time < '$new_date_to'";
         }
-        if($order_status){
+        if($order_status != -1){
             $where .= " and mo.order_status = '$order_status'";
         }
         $listorder = [
@@ -44,7 +44,7 @@ class Orders extends Model{
             $new_date_to = $date_to.' 23:59:59';
             $where .= " and mo.create_time < '$new_date_to'";
         }
-        if($order_status){
+        if($order_status != -1){
             $where .= " and mo.order_status = '$order_status'";
         }
 

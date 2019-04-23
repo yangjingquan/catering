@@ -73,4 +73,23 @@ class Recharge extends Base {
         }
     }
 
+    //小程序内余额充值/消费明细
+    public function balance_detail(){
+        $bis_id = session('bis_id','','bis');
+        $current_page = input('get.current_page',1,'intval');
+        $limit = self::PAGE_SIZE;
+        $offset = ($current_page - 1) * $limit;
+        $res = Model('Recharge')->getBalanceDetail($bis_id,$limit,$offset);
+        $count = Model('Recharge')->getBalanceCount($bis_id);
+        //总页码
+        $pages = ceil($count / $limit);
+        return $this->fetch('',[
+            'res'  => $res,
+            'pages'  => $pages,
+            'current_page'  => $current_page,
+            'count'  => $count,
+        ]);
+
+    }
+
 }

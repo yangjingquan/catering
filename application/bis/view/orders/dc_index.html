@@ -37,9 +37,11 @@
                        style="width:170px;">
             </div>
             <div style="margin-top: 0.5%;"> 订单状态:
-                <input style="margin-left: 1%;" type="radio" name="order_status" value="0" id="all" {if
-                       condition="$order_status eq 0" } checked {/if} ><label for="all"
+                <input style="margin-left: 1%;" type="radio" name="order_status" value="-1" id="all" {if
+                       condition="$order_status eq -1" } checked {/if} ><label for="all"
                                                                               style="margin-left: 0.5%;margin-right: 0.5%;">全部</label>
+                <input type="radio" name="order_status" value="0" id="weiqueren" {if condition="$order_status eq 0" }
+                       checked {/if}><label for="weiqueren" style="margin-left: 0.5%;margin-right: 0.5%;">未确认</label>
                 <input type="radio" name="order_status" value="1" id="yidiancan" {if condition="$order_status eq 1" }
                        checked {/if}><label for="yidiancan" style="margin-left: 0.5%;margin-right: 0.5%;">已点餐</label>
                 <input type="radio" name="order_status" value="2" id="yifukuan" {if condition="$order_status eq 2" }
@@ -104,9 +106,10 @@
             } else {
                 choose_page = temp;
             }
+            var order_status = {$order_status};
             var date_from = $('#logmin').val();
             var date_to = $('#logmax').val();
-            location.href = "dc_index?current_page=" + choose_page + "&date_from=" + date_from + "&date_to=" + date_to;
+            location.href = "dc_index?current_page=" + choose_page + "&date_from=" + date_from + "&date_to=" + date_to+"&order_status="+order_status;
         }
     });
 </script>
@@ -125,17 +128,17 @@
     }, "json");
     document.getElementById("new_order_count").innerHTML = sessionStorage.num;
 
-    setInterval(function () {
-        var newOrderCount = sessionStorage.num;
-        $.post(url,postData,function(res){
-            var newOrderCount  = res.data;
-            sessionStorage.num = newOrderCount;
-            if(newOrderCount > 0){
-                mp3.play();
-            }
-        },"json");
-        document.getElementById("new_order_count").innerHTML = newOrderCount;
-    },10000);
+    // setInterval(function () {
+    //     var newOrderCount = sessionStorage.num;
+    //     $.post(url,postData,function(res){
+    //         var newOrderCount  = res.data;
+    //         sessionStorage.num = newOrderCount;
+    //         if(newOrderCount > 0){
+    //             mp3.play();
+    //         }
+    //     },"json");
+    //     document.getElementById("new_order_count").innerHTML = newOrderCount;
+    // },10000);
 </script>
 
 </html>

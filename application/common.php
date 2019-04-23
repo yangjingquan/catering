@@ -52,7 +52,9 @@ function p_status($on_sale)
 //设置点餐订单状态
 function dc_order_status($status)
 {
-    if ($status == 1) {
+    if ($status == 0) {
+        $str = "<span class='label label-success radius'>未确认</span>";
+    } elseif ($status == 1) {
         $str = "<span class='label label-success radius'>已点餐</span>";
     }elseif ($status == 2) {
         $str = "<span class='label label-success radius'>已付款</span>";
