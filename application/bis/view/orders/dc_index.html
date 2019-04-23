@@ -128,17 +128,17 @@
     }, "json");
     document.getElementById("new_order_count").innerHTML = sessionStorage.num;
 
-    // setInterval(function () {
-    //     var newOrderCount = sessionStorage.num;
-    //     $.post(url,postData,function(res){
-    //         var newOrderCount  = res.data;
-    //         sessionStorage.num = newOrderCount;
-    //         if(newOrderCount > 0){
-    //             mp3.play();
-    //         }
-    //     },"json");
-    //     document.getElementById("new_order_count").innerHTML = newOrderCount;
-    // },10000);
+    setInterval(function () {
+        var newOrderCount = sessionStorage.num;
+        $.post(url,postData,function(res){
+            var newOrderCount  = res.data;
+            sessionStorage.num = newOrderCount;
+            if(newOrderCount > 0){
+                mp3.play();
+            }
+        },"json");
+        document.getElementById("new_order_count").innerHTML = newOrderCount;
+    },10000);
 </script>
 
 </html>
