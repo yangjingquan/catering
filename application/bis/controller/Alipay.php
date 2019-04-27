@@ -22,7 +22,7 @@ class Alipay extends Controller
 
         // 获取支付宝配置参数
         $config = Config::get('alipayConfig');
-
+file_put_contents('C:\Users\Administrator\Desktop\lo2.log',json_encode($config),FILE_APPEND);
         //获取充值参数
         $param = input('get.');
         $rechargeId = $param['recharge_id'];

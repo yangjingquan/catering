@@ -83,6 +83,7 @@ class Bis extends Base {
             'jifen_ratio' => $param['jifen_ratio'],
             'mem_jifen_ratio' => $param['mem_jifen_ratio'],
             'business_time' => $param['business_time'],
+            'dzp' => $param['dzp'],
             'positions' => $location,
             'update_time' => date('Y-m-d H:i:s')
         ];

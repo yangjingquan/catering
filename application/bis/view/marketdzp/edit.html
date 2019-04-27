@@ -1,0 +1,46 @@
+{include file="public/header" /}
+<body>
+<div class="page-container" style="padding: 0 20px;">
+	<form class="form form-horizontal form-o2o-add" id="form-o2o-add" enctype="multipart/form-data" method="post" action="{:url('marketdzp/update')}">
+		<input type="hidden" name="res_id" value="{$rec_res.id}">
+		<input type="hidden" name="bis_id" value="{$rec_res.bis_id}">
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>奖品id：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  id="jp_id"  name="jp_id" value="{$rec_res.jp_id}">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角度：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  id="jiaodu"  name="jiaodu" value="{$rec_res.jiaodu}">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>奖品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text"  id="jp_name"  name="jp_name" value="{$rec_res.jp_name}">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+{load href="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js" /}
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/static/h-ui.admin/js/H-ui.admin.js"></script>
+{load href="__STATIC__/bis/js/common.js" /}
+
+
+

@@ -3,25 +3,77 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 会员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+	<form action="{:url('Members/index')}" method="get">
+		<div class="" style="margin-top: 8px"> 真实姓名：
+
+			<input type="text" class="input-text1" name="truename" value="{$truename}" id="truename" placeholder="" >
+			手机号码：
+
+			<input type="text" class="input-text1" name="mobile" value="{$mobile}" id="mobile" placeholder="" >
+		</div>
+
+		<div class="" style="margin-top: 8px"> 微&nbsp; 信&nbsp;ID：
+
+			<input type="text" class="input-text1" name="mem_id" value="{$mem_id}" id="mem_id" placeholder="" >
+
+			微信昵称：
+
+			<input type="text" class="input-text1" name="nickname" value="{$nickname}" id="nickname" placeholder="" >
+		</div>
+		<div class="" style="margin-top: 8px">
+			<button name="" id="" class="btn btn-success radius" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+		</div>
+	</form>
+
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
 				<tr class="text-c">
-					<th width="80">店铺</th>
-					<th width="80">用户ID</th>
-					<th width="80">用户名</th>
+					<th width="30">ID</th>
+					<th width="80">姓名</th>
+					<th width="80">微信ID</th>
 					<th width="100">昵称</th>
+					<th width="80">头像</th>
+					<th width="100">手机</th>
+					<th width="30">积分</th>
 					<th width="60">注册时间</th>
+					<th width="60">大转盘剩余次数</th>
+					<th width="100">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				{volist name="res" id="vo"}
 					<tr class="text-c">
-						<td>{$vo.bis_id != 0 ? $vo.bis_name : '总站'}</td>
 						<td>{$vo.id}</td>
+						<td>{$vo.truename}</td>
 						<td>{$vo.username}</td>
 						<td>{$vo.nickname}</td>
+						<td>
+							<?php if($vo['mem_id'] == ''){?>
+							<?php if(substr($vo['code_url'],0,5) == 'https'){?>
+							<img src="{$vo.code_url}" style="width: 60px;height: 60px">
+							<?php }?>
+							<?php else{?>
+							<img src="https://3el.dxshuju.com/api/public/img/{$vo.code_url}" style="width: 60px;height: 60px">
+							<?php }?>
+							<?php }?>
+							<?php else{?>
+							<img src="{$vo.avatarUrl}" style="width: 60px;height: 60px">
+							<?php }?>
+						</td>
+						<td>{$vo.mobile}</td>
+						<td>{$vo.jifen}</td>
 						<td>{$vo.create_time}</td>
+						<td>{$vo.dzp_ci}</td>
+						<td class="td-manage">
+							<a style="text-decoration:none" class="ml-5" href="{:url('members/edit',['id'=>$vo.id])}" title="编辑">
+								<i class="Hui-iconfont">&#xe6df;</i>
+							</a>
+							<a style="text-decoration:none" class="ml-5" href="{:url('members/remove',['id'=>$vo.id])}" title="删除">
+
+								<i class="Hui-iconfont">&#xe6e2;</i>
+							</a>
+						</td>
 					</tr>
 				{/volist}
 			</tbody>

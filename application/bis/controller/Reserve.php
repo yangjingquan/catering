@@ -13,7 +13,7 @@ class Reserve extends Base {
         $limit = self::PAGE_SIZE;
         $offset = ($current_page - 1) * $limit;
         //总数量
-        $count = model('Reserve')->getAllCount($bis_id);
+        $count = model('Activitys')->getActivitysCount($bis_id);
 
         //总页码
         $pages = ceil($count / $limit);

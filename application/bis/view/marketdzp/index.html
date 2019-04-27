@@ -1,0 +1,59 @@
+<!--包含头部文件-->
+{include file="public/header" /}
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 营销中心 <span class="c-gray en">&gt;</span> 大转盘获奖列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="80">ID</th>
+					<th width="100">用户ID</th>
+					<th width="30">用户昵称</th>
+					<th width="60">奖品名称</th>
+					<th width="60">获奖时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="res" id="vo"}
+					<tr class="text-c">
+						<td>{$vo.id}</td>
+						<td>{$vo.userid}</td>
+						<td>{$vo.nickname}</td>
+						<td>{$vo.jiangpin_name}</td>
+						<td>{$vo.c_time}</td>
+					</tr>
+				{/volist}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="zxf_pagediv"></div>
+<!--包含头部文件-->
+{load href="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js" /}
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/My97DatePicker/WdatePicker.js"></script>
+{load href="__STATIC__/bis/js/common.js" /}
+
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="__STATIC__/bis/js/zxf_page.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	current_page = $('.current').html();
+	$(".zxf_pagediv").createPage({
+		pageNum: {$pages},//总页码
+		current : {$current_page},//当前页码
+		backfun: function(e) {
+			var temp = parseInt($('.current').html());
+			if(!temp){
+				choose_page = {$pages};
+			}else{
+				choose_page = temp;
+			}
+			location.href = "index?current_page="+choose_page;
+		}
+	});
+</script>
+</body>
+
+</html>

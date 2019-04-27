@@ -1,0 +1,114 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/admin/h_ui/static/h-ui.admin/css/H-ui.admin.css" />
+    <style>
+        #img1_c,#img2_c {
+            width: 15%;
+            max-height: 150px;
+        }
+
+    </style>
+    <script>
+        function checkParams(){
+            var title = document.getElementById('title');
+            var content = document.getElementById('content');
+
+            if(!title.value || title.value == ''){
+                alert('请填写公告标题!');
+                return false;
+            }
+
+            if(!content.value || content.value == ''){
+                alert('请填写公告详情!');
+                return false;
+            }
+
+            return true;
+
+        }
+    </script>
+</head>
+<body>
+<div class="page-container">
+    <form action="{:url('members/editSave')}" method="post" enctype="multipart/form-data" class="form form-horizontal" id="form-article-add" onsubmit="return checkParams();">
+        <input type="hidden" name="id" value="{$res.id}">
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">真实姓名: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="truename" class="input-text1" value="{$res.truename}" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">手机: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="mobile" class="input-text1" value="{$res.mobile}" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">地址: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="address" class="input-text1" value="{$res.address}" >
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">邮箱: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="email" class="input-text1" value="{$res.email}" >
+            </div>
+        </div>
+       <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">大转盘次数: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="dzp_ci" class="input-text1" value="{$res.dzp_ci}" >
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">储值卡金额: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+               <input type="text" name="balance" class="input-text1" value="{$res.balance}" >
+            </div>
+        </div>
+       
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">会员卡截止日期: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+               <input type="text" name="stop_time" class="input-text1" value="{$res.stop_time}" >
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">积分: </label>
+            <div class="formControls col-xs-8 col-sm-9">
+               <input type="text" name="jifen" class="input-text1" value="{$res.jifen}" >
+            </div>
+        </div>
+       
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" class="btn btn-default" id="setValue"></input>
+
+                <button class="btn btn-primary radius" type="submit" style="margin-left: 25%;">修&nbsp;改&nbsp;信&nbsp;息</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/h_ui/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/dist/cj-pcd-1.0.1.min.js"></script>
+</body>
+</html>
